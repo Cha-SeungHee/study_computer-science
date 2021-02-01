@@ -1,0 +1,6 @@
+#### 11003 - 최솟값 찾기
+1. Deque 대신 ArrayDeque  
+2. StringBuilder 대신 BufferedWriter  
+3. int[] 대신 index만을 덱에 넣어서 배열값으로 참조  
+4. peek 대신 get~ , add 대신 offer , poll 대신 remove....  
+5. StringTokenizer에 " " 구분자를 주어서 더 빠르게 파싱하도록 했다.  
