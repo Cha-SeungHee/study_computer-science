@@ -11,7 +11,7 @@
    
 #### String 
 - StringBuilder는 숫자를 바로 append 할 수 있기에 Integer.toString(int 변수) 할 필요가 없다  
-- 특정 글자가 숫자 또는 문자인지 확인하기 위한 API -> Character.isLetter(char ch)
+- 특정 글자가 숫자 또는 문자인지 확인하기 위한 API -> Character.isLetter(char ch), Character.isDigit(char ch)
 
 - replaceAll(정규식, 대체 String)
 - trim(): 양쪽 공백 삭제
