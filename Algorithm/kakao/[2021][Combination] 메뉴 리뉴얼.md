@@ -1,4 +1,71 @@
 ``` java
+import java.util.*;
+
+class Solution {
+    HashMap<String, Integer> map;
+    HashSet<String> set;
+
+    public String[] solution(String[] orders, int[] course) {
+        ArrayList<String> list = new ArrayList<>();
+        String[] answer;
+    
+        for (int num : course) {
+            map = new HashMap<>();
+            int max = Integer.MIN_VALUE;
+            
+            for (String o : orders) {
+                set = new HashSet<>();
+                StringBuilder sb = new StringBuilder();
+                char[] array = o.toCharArray();
+                Arrays.sort(array);
+                
+                combination(array, 0, sb, num);
+            }
+            
+            for (String key : map.keySet()) {
+                max = Math.max(max, map.get(key));
+            }
+            
+            for (String key : map.keySet()) {
+                if (max >= 2 && map.get(key) == max) {
+                    list.add(key);
+                }
+            }
+        }
+        
+        answer = new String[list.size()];
+        for(int i = 0; i < list.size(); i++) {
+            answer[i] = list.get(i);
+        }
+        
+        Arrays.sort(answer);
+        
+        return answer;
+    }
+    
+    private void combination(char[] charArray, int index, StringBuilder sb, int num) {
+        if (sb.length() == num) {
+            String menu = sb.toString();
+            if (set.add(menu)) {
+                if (!map.containsKey(menu)) {
+                map.put(menu, 0);
+                }
+                map.put(menu, map.get(menu) + 1);
+            }
+        }
+        
+        if (index == charArray.length) return;
+        
+        sb.append(charArray[index]);
+        combination(charArray, index + 1, sb, num);
+        sb.deleteCharAt(sb.length() - 1);
+        combination(charArray, index + 1, sb, num);
+    }
+}
+```
+
+
+``` java
 class Solution {
     static HashMap<String,Integer> map;
 
