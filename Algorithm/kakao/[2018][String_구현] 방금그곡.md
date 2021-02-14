@@ -2,6 +2,65 @@
 import java.util.*;
 
 class Solution {
+    String[] noteSharp = {"C#", "D#", "F#", "G#", "A#"};
+    String[] newNoteSharp = {"c", "d", "f", "g", "a"};
+    
+    public String solution(String m, String[] musicinfos) {
+        PriorityQueue<Song> queue = new PriorityQueue<>((s1, s2) -> {
+           return -(s1.duration - s2.duration);
+        });
+        
+        for (int i = 0; i < noteSharp.length; i++) {
+            m = m.replaceAll(noteSharp[i], newNoteSharp[i]);            
+        }        
+        
+        for (String music : musicinfos) {
+            StringBuilder sb = new StringBuilder();
+            
+            String[] musicArray = music.split(",");
+            
+            int duration = timeToMin(musicArray[1]) - timeToMin(musicArray[0]);
+            
+            for (int i = 0; i < noteSharp.length; i++) {
+                musicArray[3] = musicArray[3].replaceAll(noteSharp[i], newNoteSharp[i]);
+            }
+            
+            for (int i = 0; i < duration; i++) {
+                sb.append(musicArray[3].charAt(i % musicArray[3].length()));
+            }
+            
+            String string = sb.toString();            
+            
+            if (string.contains(m)) {
+                queue.offer(new Song(musicArray[2], duration));
+            }
+        }        
+        
+        return (queue.isEmpty()) ? "(None)" : queue.peek().title;
+    }
+    
+    private int timeToMin(String stringTime) {
+        String[] time = stringTime.split(":");
+        
+        return Integer.parseInt(time[0]) * 60 + Integer.parseInt(time[1]);
+    }
+}
+
+class Song {
+    String title;
+    int duration;
+    
+    Song(String title, int duration) {
+        this.title = title;
+        this.duration = duration;
+    }
+}
+```
+
+``` java
+import java.util.*;
+
+class Solution {
 	
 	String[] sharp = {"C#", "D#", "E#", "F#", "G#", "A#"};
 	String[] lowercase = {"c", "d", "e", "f", "g", "a"};
