@@ -67,3 +67,29 @@ class Solution {
     }
 }
 ```
+
+``` py
+import re
+
+def solution(dartResult):
+    sum = 0
+    resultList = []
+    
+    map = {'S' : '**1', 'D' : '**2', 'T' : '**3', '#' : '*-1'}
+    
+    scoreList = re.sub("(\d+)", " \g<1>", dartResult).split()
+    
+    for score in scoreList :
+        for char in score :
+            score = score.replace(char, map.get(char, char))                        
+        if score[-1] == '*' :
+            score += '2'        
+            if resultList :
+                resultList[-1] += '*2'                            
+        resultList.append(score)
+    
+    for result in resultList :
+        sum += eval(result)
+    
+    return sum 
+```
