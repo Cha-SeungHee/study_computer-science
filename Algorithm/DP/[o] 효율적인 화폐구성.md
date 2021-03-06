@@ -38,3 +38,26 @@ class Main {
     }
 }
 ```
+
+``` py
+N, M = list(map(int, input().split()))
+dp = [0] * (M + 1)
+coin = []
+
+for i in range(N):
+    type = int(input())
+    if type <= M:
+        dp[type] = 1
+        coin.append(type)
+
+for i in range(M + 1):
+    for c in coin:
+        if i - c > 0 and dp[i - c] > 0:
+            if dp[i] == 0:
+                dp[i] = dp[i - c] + 1
+            else:
+                dp[i] = min(dp[i], dp[i - c] + 1)
+
+print(dp)
+print(-1 if dp[M] == 0 else dp[M])
+```
