@@ -71,3 +71,22 @@ class Main {
 
 #### 확인
 1. String은 Arrays.sort로 바로 sort 할 수 없기에 char[] array로 변경한 뒤에 정렬해야 한다
+
+
+``` py
+import re
+
+s = input()
+chars = re.sub('[0-9]', '', s)
+nums = re.sub('[a-zA-Z]', '', s)
+
+sum = 0
+for i in range(len(nums)):
+    sum += int(nums[i])
+
+result = []
+result.append(''.join(sorted(chars)))
+result.append(str(sum))
+
+print(''.join(result))
+```
