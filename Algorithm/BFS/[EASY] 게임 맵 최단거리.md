@@ -64,3 +64,47 @@ class Node {
 ```
 
 기본 BFS. 응용 내용 
+
+
+``` py
+from collections import deque
+
+def solution(maps):
+    yLen = len(maps)
+    xLen = len(maps[0])
+    dx = [1, 0, -1, 0]
+    dy = [0, -1, 0, 1]
+    
+    visited = [list(False for _ in range(xLen)) for _ in range(yLen)]
+    
+    count = 0
+    found = False    
+    queue = deque()
+    queue.append((0, 0))    
+    visited[0][0] = True
+    
+    while queue:
+        size = len(queue)
+        count += 1        
+        
+        for _ in range(size):
+            y, x = queue.popleft()
+
+            if y == yLen - 1 and x == xLen - 1:
+                return count                
+
+            for d in range(4):
+                ny = y + dy[d]
+                nx = x + dx[d]
+
+                if ny < 0 or ny >= yLen or nx < 0 or nx >= xLen:
+                    continue
+
+                if visited[ny][nx] or maps[ny][nx] == 0:
+                    continue
+
+                visited[ny][nx] = True
+                queue.append((ny, nx))
+    
+    return -1
+```
