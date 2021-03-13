@@ -149,3 +149,55 @@ class Solution {
 - 특정 문자열이 다른 문자열이 포함되었는지 확인할 때: contains 메소드 사용  
 - 반음(#포함)의 경우 replaceAll을 활용하여 소문자로 변경    
 - 람다식  
+
+``` py
+import re
+import sys
+
+input = sys.stdin.readline
+
+def calcDuration(begin, end):
+    h1, m1 = begin.split(":")
+    h2, m2 = end.split(":")
+    
+    return (int(h2) * 60 + int(m2)) - (int(h1) * 60 + int(m1)) + 1
+
+
+def extractMusic(note, duration):
+    result = note * (duration // len(note))
+    result += note[:duration % len(note)]
+    
+    return result
+
+    
+def solution(m, musicinfos):
+    noteMap = {'C#':'c', 'D#':'d', 'F#':'f', 'G#':'g', 'A#':'a'}
+    candidate = []
+    
+    for i in noteMap:        
+        m = m.replace(i, noteMap[i])
+    
+    for music in musicinfos:
+        begin, end, title, note = list(music.split(","))
+        
+        duration = calcDuration(begin, end)
+        for i in noteMap:
+            note = note.replace(i, noteMap[i])
+        
+        piece = extractMusic(note, duration)       
+        
+        if m in piece:
+            candidate.append(Music(duration, title)) 
+
+    candidate.sort()
+    
+    return candidate[0].title if candidate else '(None)'
+
+class Music:
+    def __init__(self, duration, title):
+        self.duration = duration
+        self.title = title
+        
+    def __lt__(self, other):
+        return int(self.duration) > int(other.duration)    
+```
