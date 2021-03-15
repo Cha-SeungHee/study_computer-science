@@ -123,3 +123,43 @@ class Solution {
     }
 }
 ```
+
+``` py
+from itertools import combinations
+
+
+def listToStr(candidateTuple):
+    result = ''    
+    
+    for i in candidateTuple:  
+        result += i
+    
+    return result
+
+
+def solution(orders, course):    
+    answer = []
+    
+    for num in course:
+        candidates = {}
+        maxCount = -1        
+        for order in orders:
+            resultList = combinations(sorted(order), num)            
+            for result in resultList:
+                course = listToStr(result)
+                
+                if course in candidates:
+                    candidates[course] += 1                
+                else:
+                    candidates[course] = 1
+
+                maxCount = max(maxCount, candidates[course])
+    
+        for c in candidates.keys():
+            if candidates[c] == maxCount and maxCount >= 2:
+                answer.append(c)        
+    
+    answer.sort()
+    
+    return answer
+```
