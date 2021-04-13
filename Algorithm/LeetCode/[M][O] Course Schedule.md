@@ -40,3 +40,38 @@ class Solution {
     }
 }
 ```
+
+``` py
+from collections import deque
+
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        inorder = [0] * numCourses
+        visited = [False] * numCourses
+        adjList = [[] for i in range(numCourses)]
+        numCourse = 0
+        
+        for pre in prerequisites:
+            after, before = pre[0], pre[1]
+            adjList[before].append(after)
+            inorder[after] += 1
+        
+        queue = deque()    
+        for index, value in enumerate(inorder):
+            if value == 0:
+                queue.append(index)
+                visited[index] = True
+        
+        while queue:
+            course = queue.pop()                 
+            numCourse += 1
+            
+            for nextCourse in adjList[course]:
+                inorder[nextCourse] -= 1
+                
+                if not visited[nextCourse] and inorder[nextCourse] == 0:
+                    queue.append(nextCourse)
+                    visited[nextCourse] = True
+        
+        return numCourse == numCourses
+```
