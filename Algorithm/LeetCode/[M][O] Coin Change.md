@@ -34,5 +34,29 @@ class Solution {
 }
 ```
 
+``` py
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        if amount == 0:
+            return 0
+        
+        dp = [-1] * (amount + 1)
+        
+        for coin in coins:
+            if coin <= amount:
+                dp[coin] = 1
+        
+        for i in range(1, amount + 1):
+            for coin in coins:
+                index = i - coin
+                if index >= 1 and dp[index] > 0:
+                    if dp[i] == -1:
+                        dp[i] = dp[index] + 1
+                    else:
+                        dp[i] = min(dp[i], dp[index] + 1)
+                                
+        return dp[amount]
+```
+
 - CoinChnageHelper를 쓴 이유: dp 매번 생성 x  
 - amount - coin 했을 때 값이 음수가 나오는 경우는 계산 불가한 케이스임을 놓침 -> 별도 예외처리 해줌   
