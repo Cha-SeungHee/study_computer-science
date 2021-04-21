@@ -38,3 +38,38 @@ class Solution {
     }
 }
 ```
+
+``` py
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        result = []
+        letters = []
+        
+        letter_map = {
+            '2' : ['a', 'b', 'c'],
+            '3' : ['d', 'e', 'f'],
+            '4' : ['g', 'h', 'i'],
+            '5' : ['j', 'k', 'l'],
+            '6' : ['m', 'n', 'o'],
+            '7' : ['p', 'q', 'r', 's'],
+            '8' : ['t', 'u', 'v'],
+            '9' : ['w', 'x', 'y', 'z']
+        }
+        
+        
+        def dfs(index):
+            if index == len(digits):
+                if letters:
+                    result.append("".join(letters))
+                return
+        
+            for char in letter_map[digits[index]]:
+                letters.append(char)
+                dfs(index + 1)
+                letters.pop()
+         
+        
+        dfs(0)
+        
+        return result
+```
